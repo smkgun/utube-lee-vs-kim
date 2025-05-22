@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대선 선거운동 초반 '유튜브 유통 영상' 분석 보고서: 이재명 vs 김문수</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+      --primary: #1a4e8e;
+      --primary-light: #4299e1;
+      --secondary: #2d3748;
+      --accent: #f0f7ff;
+      --border: #e2e8f0;
+      --success: #38a169;
+      --warning: #dd6b20;
+      --gray-100: #f7fafc;
+      --gray-200: #edf2f7;
+      --gray-300: #e2e8f0;
+      --gray-500: #718096;
+      --gray-700: #4a5568;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.7;
+      background-color: #fff;
+      color: var(--secondary);
+      font-size: 16px;
+      font-weight: 400;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--primary);
+      line-height: 1.3;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    h1 small {
+      font-size: 1.5rem;
+      display: block;
+      margin-top: 10px;
+      color: var(--gray-700);
+      font-weight: 500;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 60px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gray-300);
+      position: relative;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 30px;
+      font-weight: 600;
+    }
+    
+    p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    strong {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .section {
+      margin-bottom: 30px;
+    }
+    
+    .infobox {
+      background-color: var(--accent);
+      padding: 20px;
+      border-radius: 6px;
+      border-left: 6px solid var(--primary-light);
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+    }
+    
+    .infobox strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .chart-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 6px;
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    
+    .chart-title {
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    th, td {
+      border: 1px solid var(--gray-300);
+      padding: 12px 15px;
+      text-align: center;
+    }
+    
+    th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    
+    tr:nth-child(even) {
+      background-color: var(--gray-100);
+    }
+    
+    tr:hover {
+      background-color: var(--gray-200);
+    }
+    
+    footer {
+      margin-top: 80px;
+      padding: 30px 0;
+      text-align: center;
+      color: var(--gray-500);
+      border-top: 1px solid var(--gray-300);
+      font-size: 0.9rem;
+    }
+    
+    .candidate {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    
+    .candidate-1 {
+      background-color: rgba(66, 153, 225, 0.2);
+      color: #2b6cb0;
+    }
+    
+    .candidate-2 {
+      background-color: rgba(237, 100, 166, 0.2);
+      color: #b83280;
+    }
+    
+    .legend {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 20px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    
+    .chart-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .summary-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .summary-card {
+      flex: 1 1 300px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+    }
+    
+    .summary-card h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+    
+    .summary-card p {
+      margin-bottom: 0;
+    }
+    
+    /* 히트맵 스타일 */
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: auto repeat(9, minmax(32px, 1fr));
+      gap: 2px;
+      max-width: 100%;
+      overflow-x: auto;
+      position:relative;
+      z-index: 1;
+    }
+    
+    .heatmap-header {
+      height: 26px;
+      line-height: 26px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 2px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 4px;
+    }
+    
+    .heatmap-cell {
+      height: 26px;
+      line-height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .heatmap-cell:hover {
+      transform: scale(1.05);
+      z-index: 10;
+    }
+    
+    .heatmap-row-label {
+      height: 26px;
+      line-height: 26px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 6px;
+      background-color: var(--gray-200);
+      border-radius: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.7rem;
+    }
+    
+    .heatmap-group-label {
+      grid-column: 1 / -1;
+      padding: 10px;
+      font-weight: bold;
+      margin-top: 15px;
+      border-bottom: 1px solid var(--gray-300);
+      color: var(--primary);
+    }
+    
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 30px;
+    }
+    
+    .legend-gradient {
+      width: 150px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+    
+    .leem-gradient {
+      background: linear-gradient(to right, #5cb85c, #d9534f);
+    }
+    
+    .kim-gradient {
+      background: linear-gradient(to right, #5cb85c, #5bc0de);
+    }
+    
+    .dashboard-section {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-title-icon {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h1 small {
+        font-size: 1.2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .summary-cards {
+        flex-direction: column;
+      }
+      .summary-card {
+        width: 100%;
+        flex: 1 1 100%;
+      }
+    }
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>대선 초반 '유튜브 유통 영상' 분석 보고서<small>
+        <span class="candidate candidate-1">이재명(기호 1번)</span> VS <span class="candidate candidate-2">김문수(기호 2번)</span></small></h1>
+    </header>
+
+    <section class="section" id="overview">
+          <h2>1. 분석 개요</h2>
+          <p>
+            본 보고서는 21대 대통령선거 공식운동 다음날인 2025년 5월 13일부터 21일(9일간)까지 유튜브에 업로드된 주요 후보 관련 콘텐츠(1일 최대 100건 수집) 제목을 대상으로,
+            두 주요 정치인 <span class="candidate candidate-1">이재명(기호 1번)</span>과 <span class="candidate candidate-2">김문수(기호 2번)</span> 후보 관련 유튜브 영상의 제목을 
+            감정 분석 기반으로 정리하였습니다. 분석에는 Google Natural Language API 방식이 사용됐습니다. 
+          </p>
+          <p>
+            공식 선거운동 시작일인 5월 12일 직후, 유튜브 영상 제목을 통해 어떤 메시지들이 유권자에게 유통되고 있는지를 중심으로 파악한 분석입니다.
+            본 분석은 댓글이 수집되지 않은 조건에서, 제목만으로 유권자들에게 자극을 주는 프레임이나 이미지가 어떻게 형성되고 있는지를 감안하여 해석되었으며,
+            특히 자극적 제목과 감정 강도가 높은 콘텐츠일수록 <strong>투표 행동에 잠재적 영향을 미칠 가능성</strong>을 내포하고 있다고 전제합니다.
+          </p>
+    </section>
+      
+      <div class="summary-cards">
+        <div class="summary-card">
+          <h3>분석 기간</h3>
+          <p>2025년 5월 13일 ~ 5월 21일 (9일간)</p>
+        </div>
+        <div class="summary-card">
+          <h3>분석 대상</h3>
+          <p>이재명, 김문수 후보 관련 유튜브 콘텐츠 제목</p>
+        </div>
+        <div class="summary-card">
+          <h3>주요 측정 지표</h3>
+          <p>감정 점수, 감정 강도, 키워드 빈도</p>
+        </div>  
+        <div class="summary-card">
+          <h3> 용어 설명 </h3>
+          <p><strong>감정점수(sentiment score)</strong>: -1.0~+1.0의 값으로 +1.0으로 갈수록 강한 긍정, -1.0으로 갈수록 강한 부정을 의미</p>
+          <p><strong>감정강도(sentiment magnitude)</strong>: 0 이상의 제한없는 값으로 감정이 얼마나 강하게 표현되는지를 측정</p>  
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sentiment-trend">
+      <h2>2. '감정 점수' 추이 분석</h2>
+      <div class="chart-container">
+        <div class="chart-title">후보별 감정 점수 추이 (5월 13일~21일)</div>
+        <div class="chart-wrapper">
+          <canvas id="sentimentChart"></canvas>
+        </div>
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(66, 153, 225, 0.8);"></div>
+            <span>이재명 감정 점수</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(237, 100, 166, 0.8);"></div>
+            <span>김문수 감정 점수</span>
+          </div>
+        </div>
+      </div>
+      
+        <div class="infobox">
+          <strong>주요 발견사항</strong>
+          <p><span class="candidate candidate-1">이재명</span> 후보 관련 생산, 유통되는 콘텐츠 제목에서 드러나는 감정 점수는 분석 기간 내 꾸준히 상승해 5월 17~19일 사이 최고 0.15점을 기록한 후
+            다소 조정되었습니다. 감정 강도는 5.18민주화운동 기념일인 5월 19일 0.335로 최고치를 찍었습니다.
+            반면 <span class="candidate candidate-2">김문수</span> 후보는 5월 20일에 감정 점수가 소폭 반등했지만, 전반적으로 정체 상태를 유지했습니다.
+            특히 5월 16~20일 사이 양 후보 간 감정 온도차가 뚜렷해졌으며, 해당 시기는 김상욱 의원과 김용남 전 의원의 민주당 입당, 
+            경제 분야 TV토론, 5.18 민주화운동 기념일 등 정치적 이벤트가 집중된 시기였습니다.
+            다만, 20일을 기점으로 양 후보간 감정 점수 격차가 좁아지고 있으며, 이는 양 후보 관련 유튜브 콘텐츠 제목의 차별성이 희석되고 있다는 점을 의미한다고 할 수 있습니다.</p>
+        </div>
+    </section>
+
+     <section class="section" id="sentiment-trend">
+       <h2>3. 감정 점수 Heatmap</h2>
+      <div class="heatmap-grid">
+        <div class="heatmap-header">항목 \ 날짜</div>
+        <div class="heatmap-header">5/13</div>
+        <div class="heatmap-header">5/14</div>
+        <div class="heatmap-header">5/15</div>
+        <div class="heatmap-header">5/16</div>
+        <div class="heatmap-header">5/17</div>
+        <div class="heatmap-header">5/18</div>
+        <div class="heatmap-header">5/19</div>
+        <div class="heatmap-header">5/20</div>
+        <div class="heatmap-header">5/21</div>
+        
+        <!-- 이재명 후보 그룹 -->
+        <div class="heatmap-group-label">이재명 후보</div>
+        
+        <!-- 이재명 감정 점수 행 -->
+        <div class="heatmap-row-label">이재명_감정 점수</div>
+          <div class="heatmap-cell" style="background-color:#66ae5c">0.059</div>
+          <div class="heatmap-cell" style="background-color:#61b25c">0.031</div>
+          <div class="heatmap-cell" style="background-color:#71a45c">0.073</div>
+          <div class="heatmap-cell" style="background-color:#9b8156">0.131</div>
+          <div class="heatmap-cell" style="background-color:#af7053">0.150</div>
+          <div class="heatmap-cell" style="background-color:#a77754">0.142</div>
+          <div class="heatmap-cell" style="background-color:#af7053">0.151</div>
+          <div class="heatmap-cell" style="background-color:#a07d55">0.137</div>
+          <div class="heatmap-cell" style="background-color:#a87a55">0.139</div>
+
+        
+        <!-- 이재명 감정 강도 행 -->
+        <div class="heatmap-row-label">이재명_감정 강도</div>
+         <div class="heatmap-cell" style="background-color:#9b8156">0.218</div>
+            <div class="heatmap-cell" style="background-color:#869358">0.178</div>
+            <div class="heatmap-cell" style="background-color:#968757">0.209</div>
+            <div class="heatmap-cell" style="background-color:#8b8e58">0.192</div>
+            <div class="heatmap-cell" style="background-color:#c45e51">0.296</div>
+            <div class="heatmap-cell" style="background-color:#c65c50">0.300</div>
+            <div class="heatmap-cell" style="background-color:#d94c4d">0.335</div>
+            <div class="heatmap-cell" style="background-color:#be6351">0.282</div>
+            <div class="heatmap-cell" style="background-color:#c85a50">0.305</div>
+
+        
+        <!-- 김문수 후보 그룹 -->
+        <div class="heatmap-group-label">김문수 후보</div>
+        
+        <!-- 김문수 감정 점수 행 -->
+        <div class="heatmap-row-label">김문수_감정 점수</div>
+        <div class="heatmap-cell" style="background-color:#5cb87d">0.043</div>
+            <div class="heatmap-cell" style="background-color:#5cb882">0.053</div>
+            <div class="heatmap-cell" style="background-color:#5cb880">0.048</div>
+            <div class="heatmap-cell" style="background-color:#5cb87d">0.043</div>
+            <div class="heatmap-cell" style="background-color:#5cbc9b">0.087</div>
+            <div class="heatmap-cell" style="background-color:#5cb87e">0.044</div>
+            <div class="heatmap-cell" style="background-color:#5cb87e">0.045</div>
+            <div class="heatmap-cell" style="background-color:#5cb88e">0.065</div>
+            <div class="heatmap-cell" style="background-color:#5cb892">0.070</div>
+
+        
+        <!-- 김문수 감정 강도 행 -->
+        <div class="heatmap-row-label">김문수_감정 강도</div>
+        <div class="heatmap-cell" style="background-color:#5bc0c3">0.191</div>
+            <div class="heatmap-cell" style="background-color:#5bc0b3">0.136</div>
+            <div class="heatmap-cell" style="background-color:#5bc0c5">0.195</div>
+            <div class="heatmap-cell" style="background-color:#5bc0ae">0.122</div>
+            <div class="heatmap-cell" style="background-color:#5bc0c6">0.196</div>
+            <div class="heatmap-cell" style="background-color:#5bc0b5">0.144</div>
+            <div class="heatmap-cell" style="background-color:#5bc0c8">0.210</div>
+            <div class="heatmap-cell" style="background-color:#5bc0cd">0.237</div>
+            <div class="heatmap-cell" style="background-color:#5bc0d1">0.251</div>
+      </div>
+      
+      <!-- 범례 -->
+      <div class="legend-container">
+        <div class="legend-item">
+          <div class="legend-gradient leem-gradient"></div>
+          <span>이재명 후보 (낮음 → 높음)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-gradient kim-gradient"></div>
+          <span>김문수 후보 (해당 기간 비슷한 수준 유지)</span>
+        </div>
+      </div>
+      
+      <!-- 설명 -->
+        <div style="text-align: center; margin: 15px auto; font-size: 0.9rem; color: var(--gray-500);">
+            히트맵의 수치가 클수록, 색깔이 붉은색이 강해질수록 감정 반응 강도가 높음을 의미합니다
+        </div>
+          
+      <div class="infobox">
+        <strong>히트맵 해석</strong>
+        <p>
+          히트맵 분석을 통해 확인된 감정 강도 수치는 각 후보가 유권자에게 어떤 방식으로 정서적 반응을 유도했는지를 시각적으로 보여줍니다. <br>
+          <span class="candidate candidate-1">이재명</span> 관련 유튜브 영상은 5월 19일 기준 0.335라는 최고 감정 강도 수치를 기록하며,
+          다층적 메시지와 정치적 이벤트 연계 콘텐츠를 통해 높은 감정 몰입을 유도한 것으로 해석됩니다.<br>
+          반면 <span class="candidate candidate-2">김문수</span> 후보는 같은 기간 동안 0.237을 넘지 못하며, 감정 유발 수준이 제한적이었고,
+          유사한 형식의 유세 중심 콘텐츠 반복으로 감정 파동의 진폭이 크지 않은 것으로 나타났습니다.<br>
+          전체적으로 히트맵은 기간별 반응 편차를 색상과 수치로 직관적으로 파악할 수 있는 도구로서,
+          향후 정치 메시지 설계 시 감정 유도 설계의 방향성을 구체화하는 데 전략적으로 활용될 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+     <section class="section" id="keywords">
+      <h2>4. 주요 키워드 비교</h2>
+     
+      <table>
+        <thead>
+          <tr>
+            <th width="15%">날짜</th>
+            <th width="42.5%">이재명 주요 키워드</th>
+            <th width="42.5%">김문수 주요 키워드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>5/13</td><td><b>홍준표</b>, 유세, 김문수</td><td>이재명, 후보, 대선</td></tr>
+          <tr><td>5/14</td><td>민주당, 대선, 현장</td><td>현장, 유세, 부산</td></tr>
+          <tr><td>5/15</td><td>유세, <b>김상욱</b>, 대통령</td><td>대통령, 국민</td></tr>
+          <tr><td>5/16</td><td><b>김상욱</b>, 유세, 대선</td><td>후보, 유세</td></tr>
+          <tr><td>5/17</td><td><b>김용남</b>, 광주, 대통령</td><td>대통령, 국민</td></tr>
+          <tr><td>5/18</td><td>윤석열, 공약, 시민</td><td>유세, 현장</td></tr>
+          <tr><td>5/19</td><td><b>이준석</b>, 논평, 윤석열</td><td>국민, 대통령, 유세</td></tr>
+          <tr><td>5/20</td><td>민주화, 공약, <b>이준석</b></td><td><b>이준석</b>, 유세, 정책</td></tr>
+          <tr><td>5/21</td><td> 대한민국, 후보, 유세</td><td>이재명, 후보, <b>이준석</b></td></tr>
+        </tbody>
+      </table>
+      
+      <div class="infobox">
+        <strong>키워드 패턴 분석</strong>
+        <p>
+          <span class="candidate candidate-1">이재명</span> 후보는 콘텐츠 제목에서 다양한 정치 인물(예: 김상욱, 김용남, 이준석) 및 시사 이슈를 함께 언급하며, 
+          유권자의 관심을 다층적으로 자극하는 전략을 활용하고 있습니다. 이러한 확장 키워드는 감정 유도와 화제성 증폭에 효과적으로 작용하며,
+          결과적으로 높은 감정 점수와 강도로 연결됩니다.<br>
+          반면 <span class="candidate candidate-2">김문수</span> 후보는 일정한 틀의 유세 관련 키워드를 반복적으로 사용하면서 콘텐츠 주제 다양성 확보에 한계를 보였고,
+          이는 감정 강도의 정체와도 연관되는 패턴입니다. 특히 주요 키워드가 반복될수록 유권자 반응의 신선도와 몰입도가 떨어질 가능성이 있습니다.
+          키워드의 확장성, 상호 연결성, 이슈 타이밍과의 결합이 향후 정치 콘텐츠 설계의 핵심 전략요소가 될 것이며,
+          감정 기반 커뮤니케이션에서 키워드는 단순 정보가 아닌 정서적 후킹(hooking) 장치로 기능한다는 점을 유의할 필요가 있습니다.
+        </p>
+      </div>
+     </section>
+
+     <section class="section" id="summary">
+      <h2>5. 감정 분석 요약</h2>
+      <div class="chart-container">
+        <div class="dashboard-title">
+          <svg class="dashboard-title-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 6H3M21 12H3M16 18H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          감정 분석 요약
+        </div>
+        <div class="chart-wrapper">
+          <canvas id="summaryChart"></canvas>
+        </div>
+        <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--gray-500);">* 기간 전체 평균 수치 비교</p>
+      </div>
+     </section>
+
+    <section class="section" id="conclusion">
+          <h2>6. 전망 및 총론</h2>
+          <p>
+            분석 기간 동안 전반적으로 <span class="candidate candidate-1">이재명</span> 후보는 유튜브 상에서 감정 점수 및 강도 측면 모두에서 우세한 흐름을 보였습니다.
+            이는 김상욱 의원, 김용남 전 의원 등 국민의힘 탈당 인사들의 민주당 입당 이벤트가 지지층 및 중도층에 긍정적인 기대감을 작용토록하는 한편,
+            다양한 인물 언급과 메시지 전략이 감정 반응을 유도했기 때문으로 해석됩니다.
+            반면 <span class="candidate candidate-2">김문수</span> 후보는 단일 이슈 반복으로 반응 강도가 낮아 유튜브 콘텐츠가 효과적으로 공급되지 못하는 측면을 보여주었습니다.
+            <br>하지만 이는 공식 선거운동 초반의 해석일 뿐, 지지층이 결집하는 중반 이후는 변화가 예상됩니다. 
+            실제 감성 점수 분석에서 5월 19일 이후 <span class="candidate candidate-1">이재명</span> 후보의 감성 점수는 하향하며 <span class="candidate candidate-2">김문수</span> 후보와 교차하는 양상을 보였습니다. 
+            대선 초반 공식 유세 시작 이후 유튜브 상에서 형성되는 여론 프레임은 유권자 자극성과 감정 유발성을 중심으로 확산될 가능성이 높습니다.
+            향후 정치 커뮤니케이션 전략 수립 시, 감정 유발 키워드 확장과 정치적 이벤트를 통한 콘텐츠 다양성 확보가 핵심 과제가 될 것입니다.
+            특히 이번 분석에서 주목할 만한 인사이트는 <span style="color: orange; font-weight: bold;">이준석</span> 키워드가
+            양 진영 후보의 영상에 등장하고 있다는 점입니다. 
+            이는 유튜브 콘텐츠 내에서 <span style="color: orange; font-weight: bold;">이준석</span>라는 인물이 중도 프레임, 혹은 전환 구도의 상징으로 활용되고 있음을 시사합니다.
+            결국 <span class="candidate candidate-1">이재명</span> 후보 측에서는 감정 자극과 확장 전략의 일부로, <span class="candidate candidate-2">김문수</span> 후보 측에서는 대립 구도 강화를 위한 참조 인물로 기능한 것으로 해석됩니다.
+            향후 선거운동 중반기 메시지 전략에서 교차 진영 인물의 전략적 활용은 유권자의 주목도를 높이고,
+            감정 기반 정치 콘텐츠의 확산력과 전파력을 극대화하는 주요 요인이 될 수 있습니다.
+          </p>
+    </section>
+    
+    <footer>
+      <p>ⓒ 2025 Insight-Data LAB | 분석 파트너: Carl + AI agent | Powered by Chart.js</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // 차트 스타일 설정
+Chart.defaults.font = {
+  family: "'Noto Sans KR', sans-serif",
+  size: 14
+};
+Chart.defaults.color='#4a5568';
+
+// 1. 감정 점수 추이 차트
+const sentimentData = {
+  labels: ['5/13', '5/14', '5/15', '5/16', '5/17', '5/18', '5/19', '5/20', '5/21'],
+  datasets: [
+    {
+      label: '이재명 감정 점수',
+      data: [0.059, 0.031, 0.073, 0.131, 0.150, 0.142, 0.151, 0.137, 0.139],
+      backgroundColor: 'rgba(66, 153, 225, 0.2)',
+      borderColor: 'rgba(66, 153, 225, 0.8)',
+      borderWidth: 2,
+      tension: 0.4,
+      pointRadius: 5,
+      pointHoverRadius: 7
+    },
+    {
+      label: '김문수 감정 점수',
+      data: [0.043, 0.053, 0.048, 0.043, 0.087, 0.044, 0.045, 0.065, 0.070],
+      backgroundColor: 'rgba(237, 100, 166, 0.2)',
+      borderColor: 'rgba(237, 100, 166, 0.8)',
+      borderWidth: 2,
+      tension: 0.4,
+      pointRadius: 5,
+      pointHoverRadius: 7
+    }
+  ]
+};
+
+const sentimentConfig = {
+  type: 'line',
+  data: sentimentData,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        backgroundColor: 'rgba(45, 55, 72, 0.9)',
+        titleFont: {
+          size: 14,
+          weight: 'bold'
+        },
+        bodyFont: {
+          size: 13
+        },
+        padding: 12,
+        cornerRadius: 4,
+        displayColors: true
+      }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: '날짜',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '감정 점수',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        min: 0,
+        max: 0.2,
+        ticks: {
+          stepSize: 0.05
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
+        }
+      }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'nearest'
+    }
+  }
+};
+
+const sentimentChart = new Chart(
+  document.getElementById('sentimentChart'),
+  sentimentConfig
+);
+
+// 2. 요약 비교 차트
+const summaryData = {
+  labels: ['감정 점수 평균', '감정 강도 평균'],
+  datasets: [
+    {
+      label: '이재명',
+      data: [
+        (0.059 + 0.031 + 0.073 + 0.131 + 0.150 + 0.142 + 0.151 + 0.137 + 0.139) / 9,
+        (0.218 + 0.178 + 0.209 + 0.192 + 0.296 + 0.300 + 0.335 + 0.282 + 0.305) / 9
+      ],
+      backgroundColor: 'rgba(66, 153, 225, 0.7)',
+      borderColor: 'rgba(66, 153, 225, 1)',
+      borderWidth: 1
+    },
+    {
+      label: '김문수',
+      data: [
+        (0.043 + 0.053 + 0.048 + 0.043 + 0.087 + 0.044 + 0.045 + 0.065 + 0.070) / 9,
+        (0.191 + 0.136 + 0.195 + 0.122 + 0.196 + 0.144 + 0.210 + 0.237 + 0.251) / 9
+      ],
+      backgroundColor: 'rgba(237, 100, 166, 0.7)',
+      borderColor: 'rgba(237, 100, 166, 1)',
+      borderWidth: 1
+    }
+  ]
+};
+
+const summaryConfig = {
+  type: 'bar',
+  data: summaryData,
+  options: {
+    responsive: true,
+    indexAxis: 'y',
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          font: {
+            size: 13
+          }
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(45, 55, 72, 0.9)',
+        titleFont: {
+          size: 14,
+          weight: 'bold'
+        },
+        bodyFont: {
+          size: 13
+        },
+        padding: 12,
+        cornerRadius: 4,
+        callbacks: {
+          label: function(context) {
+            return `${context.dataset.label}: ${context.raw.toFixed(3)}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 0.3,
+        title: {
+          display: true,
+          text: '평균 점수',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
+      }
+    }
+  }
+};
+
+const summaryChart = new Chart(
+  document.getElementById('summaryChart'),
+  summaryConfig
+);
+</script>
+</body>
+</html>
